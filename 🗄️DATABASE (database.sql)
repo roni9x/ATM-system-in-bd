@@ -1,0 +1,12 @@
+CREATE DATABASE atm_project;
+USE atm_project;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nid VARCHAR(20),
+    pin VARCHAR(10),
+    balance DOUBLE
+);
+
+INSERT INTO users(nid, pin, balance)
+VALUES ('12345', '1234', 5000);
