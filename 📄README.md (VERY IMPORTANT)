@@ -1,0 +1,14 @@
+# 🏦 ATM System (BSc Project)
+
+## 📌 Features
+- Login system (NID + PIN)
+- Balance check
+- Deposit money
+- Withdraw money
+- Simple GUI (Tkinter)
+
+## 🧰 Tech Stack
+- Python
+- Tkinter
+
+## 🚀 How to Run
