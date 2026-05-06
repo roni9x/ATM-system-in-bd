@@ -1,0 +1,73 @@
+import tkinter as tk
+from tkinter import messagebox
+
+user_db = {
+    "12345": {"pin": "1234", "balance": 5000}
+}
+
+current_user = None
+
+def login():
+    global current_user
+    nid = entry_nid.get()
+    pin = entry_pin.get()
+
+    if nid in user_db and user_db[nid]["pin"] == pin:
+        current_user = nid
+        messagebox.showinfo("Success", "Login Successful!")
+        dashboard()
+    else:
+        messagebox.showerror("Error", "Invalid Credentials")
+
+def check_balance():
+    bal = user_db[current_user]["balance"]
+    messagebox.showinfo("Balance", f"{bal} TK")
+
+def deposit():
+    amt = float(entry_amount.get())
+    user_db[current_user]["balance"] += amt
+    messagebox.showinfo("Success", "Deposited")
+
+def withdraw():
+    amt = float(entry_amount.get())
+
+    if user_db[current_user]["balance"] >= amt:
+        user_db[current_user]["balance"] -= amt
+        messagebox.showinfo("Success", "Withdraw Successful")
+    else:
+        messagebox.showerror("Error", "Insufficient Balance")
+
+def dashboard():
+    dash = tk.Toplevel(root)
+    dash.title("ATM Dashboard")
+    dash.geometry("350x300")
+
+    tk.Label(dash, text="🏦 ATM MENU", font=("Arial", 14)).pack(pady=10)
+
+    tk.Button(dash, text="💰 Balance", command=check_balance).pack(pady=5)
+
+    global entry_amount
+    entry_amount = tk.Entry(dash)
+    entry_amount.pack()
+    entry_amount.insert(0, "Enter amount")
+
+    tk.Button(dash, text="💸 Deposit", command=deposit).pack(pady=5)
+    tk.Button(dash, text="🏧 Withdraw", command=withdraw).pack(pady=5)
+
+root = tk.Tk()
+root.title("ATM System")
+root.geometry("300x250")
+
+tk.Label(root, text="🏦 LOGIN", font=("Arial", 16)).pack(pady=10)
+
+tk.Label(root, text="NID").pack()
+entry_nid = tk.Entry(root)
+entry_nid.pack()
+
+tk.Label(root, text="PIN").pack()
+entry_pin = tk.Entry(root, show="*")
+entry_pin.pack()
+
+tk.Button(root, text="Login", command=login).pack(pady=10)
+
+root.mainloop()
